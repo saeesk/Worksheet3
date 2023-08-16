@@ -1,0 +1,44 @@
+#Worksheet 2 
+seat <- read.csv("https://dvats.github.io/assets/course/mth208/seating.csv")
+head(seat)
+summary(seat)
+colnames(seat)
+seat = data.frame(seat)
+RollNo = seat$Roll.No
+ms = 0 
+for ( r in RollNo)
+{
+  if( r /100000000 >1 )
+  {
+    ms = ms + 1
+  }
+}
+bs = length(RollNo) - ms
+ms 
+bs
+
+
+# Problem 3
+
+plot( x = 1:10 , y = 1:10, main = " Y = X Plot " , ylab = "Y" , xlab = "X" , type = "l")
+
+
+#problem 4
+ n = 1 : 1000
+ fn = ( 1 + 1/n )^ n 
+ plot(x =  n , y = fn , type = "l" , main = "EXP(1)")
+ abline( a= exp(1) , b = 0 , col = "red")
+ 
+ 
+#Problem 2 
+cricket <- read.csv("battingbowling.csv")
+head(cricket)
+colnames(cricket)
+
+allrounders = cricket[ cricket$Bowling < 40 & cricket$Batting > 25,  ] 
+allrounders
+teams = table(allrounders$Team)
+
+names(which.max(teams))
+names(which.min(teams))
+
