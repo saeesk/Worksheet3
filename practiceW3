@@ -1,0 +1,102 @@
+####Worksheet3 
+
+#Problem 1
+head.prop = function(p)
+{ 
+  tosses = numeric(length = 1e3)
+  for(i in 1:1e3)
+  {
+    tosses[i] = rbinom(n = 1 , size = 1, prob = p )
+  }
+  return(mean(tosses))
+}
+
+head.prop(p = 0.5)
+head.prop(p = 0.3)
+
+
+#Problem 2 
+draw.ball = function()
+{
+  balls = c(rep("red",3) , rep("blue",2), rep("green",2))
+  ball =sample(x = balls , size = 1)
+  return(ball)
+}
+draw.ball()
+
+
+#Problem 3 
+A <- matrix(c(3, 1, -2, 4, 5, 3, -1, 2, -2), nrow = 3, ncol = 3)
+colno.A = c(1 ,2 ,3)
+p_i = numeric(length = 3)
+for(i in 1: 3)
+{
+  p_i[i] = norm(A[ , i] , type = "2")
+  
+}
+p_i = p_i /sum(p_i)
+sample(x = colno.A , size = 1 , prob = p_i)
+
+
+#Problem 4 
+runif(n = 1 , min = 0 , max = 5)
+
+
+# Problem 5 
+
+exceed = function()
+{
+  count = 0
+  sum = 0
+  while(sum <= 1)
+  {
+    sum = sum + runif(n =1 , min = 0 , max = 1)
+    count = count + 1
+  }
+  return(count)
+}
+
+exceed()
+
+
+store = numeric(length = 1e3)
+for( r in 1 : 1e3)
+{
+  store[r] = exceed()
+  
+}
+mean(store)
+
+
+
+
+#Problem 4 
+candles = function(age)
+{
+  blow = 0 
+  while(age > 0)
+  {
+    age = age - sample(1 : age , size = 1)
+    blow = blow + 1
+  }
+  return(blow)
+}
+candles(age = 25)
+
+blows = numeric(length = 1e3)
+for ( i in 1: 1e3)
+{
+  blows [i] = candles(age = 25)
+}
+mean(blows)
+
+
+blows = numeric(length = 1e3)
+for ( i in 1: 1e3)
+{
+  blows [i] = candles(age = 30)
+}
+mean(blows)
+
+
+
