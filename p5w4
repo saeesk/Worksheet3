@@ -1,0 +1,23 @@
+#Problem 5 
+library(imager)
+rotate.180 = function(image)
+{
+  mat = as.array(image[ , , 1, ])
+  r.mat = mat
+  m = dim(mat)[1]
+  n = dim(mat)[2]
+  for(i in 1 : m)
+  {
+    for( j in 1:n)
+    {
+      r.mat[i ,j , ] = mat[m+1 -i , n+1 -j , ]
+    }
+  }
+  r.image = as.cimg(r.mat)
+  plot(r.image , main = "My rotated Doggo!")
+}
+
+dog = load.image("dog.jpeg")
+rotate.180(image = dog)
+
+
