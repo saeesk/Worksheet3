@@ -1,0 +1,29 @@
+pills = function()
+{ 
+  thing = 1 
+  day = 1
+  ones = 99
+  while(thing == 1)
+  {
+    day = day + 1 
+    thing = rbinom( n = 1 , size =1 , prob = ones/100)
+    if(thing == 1)
+    {
+      ones = ones -1
+    }
+  }
+  return(day)
+}
+pills()
+
+avg.pills = function()
+{
+  days =  numeric(length = 1000)
+  for( i in 1 : 1000)
+  {
+    days[i] = pills()
+  }
+  return(mean(days))
+}
+
+avg.pills()
