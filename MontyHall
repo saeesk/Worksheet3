@@ -1,0 +1,35 @@
+
+#P7 
+MontyHall = function()
+{
+  door = sample(x = 1: 3 , size =1)
+  car = sample(x = 1: 3 , size =1)
+  choice = sample(x = 1: 3 , size =1)
+  
+  reveal = door[ -c(choice , car)] 
+  new.choice = door[ -c(choice , reveal)]
+  
+  if(new.choice == car)
+  {
+    return(1)
+  }
+  else
+  {
+    return(0)
+  }
+  
+}
+MontyHall()
+
+est.prob = function()
+{
+  probs = numeric(length = 1000)
+  for( i in 1 : 1000)
+  {
+    probs[i] = MontyHall()
+    
+  }
+  return(mean(probs))
+}
+
+est.prob()
