@@ -1,0 +1,37 @@
+
+#Problem 0 
+library(tidyverse)
+library(rvest)
+html = read_html("https://www.iitk.ac.in/math/faculty")
+html = html_elements(html , " .head3 a")%>%html_text()
+html 
+
+#Problem 1 
+post.docs = read_html("https://www.iitk.ac.in/math/visitors-post-doctoral-fellow")%>%html_elements(" .head2")%>%html_text()
+post.docs
+
+#Problem 2 
+names = read_html("https://www.imdb.com/chart/top/")%>%html_elements(" .ipc-title__text")%>%html_text()
+names = names[3:252]
+names 
+
+for(i in 1:250)
+{
+  if( i < 10)
+  {
+    names[i] = substring(names[i] ,4)
+  }
+  else if ( i>= 10 & i <100)
+  {
+    names[i] = substring(names[i],5)
+  }
+  else
+  {
+    names[i] = substring(names[i],6)
+  }
+}
+
+names
+
+
+
