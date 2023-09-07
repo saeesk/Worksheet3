@@ -1,0 +1,9 @@
+library(rvest)
+library(tidyverse)
+tabless = read_html("https://www.icc-cricket.com/rankings/womens/player-rankings/odi/batting")%>%html_table()
+tabless[[1]]$Pos = 1:100
+df = data.frame(tabless)
+df$Pos = as.numeric(df$Pos)     #Making position column numeric
+df$Rating = as.numeric(df$Rating) #Making Rating column numeric
+icc_rank = df[ , 1:4]
+
