@@ -1,1 +1,36 @@
+#Problem 14 
+library(tidyverse)
+library(dplyr)
+library(rvest)
 
+html = read_html("https://editorial.rottentomatoes.com/guide/best-netflix-movies-to-watch-right-now")
+years= html_elements(html , ".subtle.start-year")%>%html_text()
+years = substring( years , 2,5)
+years
+
+score= html_elements(html , ".tMeterScore")%>%html_text()
+score= substring(score , 1, nchar(score)-1)
+score
+
+rating = html_elements(html , ".countdown-index")%>%html_text()
+rating = substring(rating , 2)
+rating 
+
+movies = html_elements(html , ".article_movie_title")%>%html_text()
+movies = substring(movies , 28)
+movies = strsplit(movies , ")" )
+for (i in 1 : 100)
+{
+  movies[[ i ]][1] = substring(movies[[i]][1] , 1 , nchar(movies[[i]][1])-5)
+}
+movie_name = c()
+
+for (i in 1 : 100)
+{
+  movie_name = c(movie_name , movies[[ i ]][1])
+}
+#movies = movies[[]][1]
+movie_name
+
+df =data.frame(rating,movie_name ,years,score)
+df
