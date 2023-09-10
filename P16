@@ -1,0 +1,44 @@
+library(dplyr)
+library(tidyverse)
+library(rvest)
+
+html = read_html("https://stats.stackexchange.com/questions?tab=Votes")
+
+title = html_elements(html , ".s-link")%>%html_text()
+title = title[2:16]
+title
+
+
+votes = html_elements(html , ".s-post-summary--stats-item.s-post-summary--stats-item__emphasized")%>%html_text()
+votes = strsplit(votes , "\r\n")
+v = c()
+
+
+
+for ( i in 1:15)
+{
+  v = c( v , votes[[i]][2])
+} 
+v[1] = substring(v[1] ,nchar(v[1])-3)
+for( i in 2:15)
+{
+    v[i] = substring( v[i] ,nchar(v[i])-2)
+}
+v
+
+
+views = html_elements(html , ".s-post-summary--stats-item.is-supernova")%>%html_text()
+views = strsplit(views , "\r\n")
+view.count = c()
+for ( i in 1:15)
+{
+  view.count= c( view.count , views[[i]][2])
+} 
+view.count
+
+view.count[1] = substring(view.count[1] ,nchar(view.count[1])-3)
+for( i in 2:15)
+{
+  view[i] = substring( v[i] ,nchar(v[i])-2)
+}
+view.count
