@@ -1,0 +1,64 @@
+library(rvest)
+library(tidyverse)
+library(dplyr)
+##Problem 14 
+
+html = read_html("https://editorial.rottentomatoes.com/guide/best-netflix-movies-to-watch-right-now/")
+#1. Name 
+name = html_elements(html , " .article_movie_title")%>%html_text()
+name = sapply(1:100 , function(k) strsplit(name[k], ")" )[[1]][1])
+name = substring(name , 28 , nchar(name)-6)
+name
+
+#2.Ranking 
+rank = html_elements(html , " .countdown-index")%>%html_text()
+rank = substring(rank , 2)
+rank = as.numeric(rank)
+
+#3.Tomato % score
+
+tscore = html_elements(html , " .tMeterScore")%>%html_text()
+tscore = substring(tscore , 1 , nchar(tscore)-1)
+tscore = as.numeric(tscore)
+
+#4.Year 
+year =  html_elements(html , " .subtle.start-year")%>%html_text()
+year = substring(year , 2 , 5)
+year
+
+Tomato.Movies = data.frame(rank , name , year , tscore)
+Tomato.Movies
+
+
+##Problem 15 
+#1. title
+html =  read_html("https://stats.stackexchange.com/questions?tab=Votes")
+title  = html_elements(html , " .s-link")%>%html_text()
+title = title[2:16]
+title
+
+
+
+info = html_elements(html , " .s-post-summary--stats-item-number")%>%html_text()
+
+#2.Views 
+vec1 = seq(from = 3 , to = 45 , by = 3)
+views = info[vec1]
+views 
+
+#3.Votes 
+vec2 = seq( from= 1 , to = 45 , by= 3)
+votes = info[vec2]
+votes 
+
+#4.Answers 
+vec3 = seq(from = 2 , to = 45 , by = 3)
+answers = info[vec3]
+answers 
+
+
+sr.no = 1:15
+
+questions.info = data.frame(sr.no , views , as.numeric(votes) , as.numeric(answers)) 
+
+
