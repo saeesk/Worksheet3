@@ -1,0 +1,15 @@
+library(rvest)
+library(tidyverse)
+###Question 1 
+html = read_html("https://www.iitk.ac.in/math/faculty")
+faculty.name = html%>%
+  html_elements(".head3 a")%>%
+  html_text()
+faculty.name
+
+
+#Question 2 
+html = read_html("https://www.iitk.ac.in/math/visitors-post-doctoral-fellow")
+post.docs = html%>%html_elements(".head2")%>%
+  html_text()
+post.docs
