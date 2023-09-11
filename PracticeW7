@@ -9,3 +9,42 @@ movie.table =  html_table(html)
 movie.table = data.frame(movie.table)
 movie.table $Lifetime.Gross = substring(movie.table$Lifetime.Gross , 2)
 write.csv(movie.table , file="W7_Problem4")
+
+
+
+#Problem 2 and 3 
+
+#Problem 2 and 3
+html = read_html("https://www.imdb.com/chart/top/")
+poster = html_elements(html," .ipc-image")%>%html_attr("src")
+#poster 
+
+pix.prop = function(link)
+{
+  black = c(0,0,0)
+  image = load.image(link)
+  col.mat = as.array(image[ , , 1, ])
+  dims = dim(col.mat)
+  count = 0
+  for( i in 1:dims[1])
+  {
+    for( j in 1:dims[2])
+    {
+      diff = norm(col.mat[i , j , ] - black , "2")
+      if(diff < 0.2)
+      {
+        count  = count + 1
+      }
+    }
+  }
+  return(count/(dims[1]*dims[2]))
+}
+
+proportion = numeric(length = 250)
+for( i in 1:250)
+{
+  proportion[i] = pix.prop(poster[i])
+}
+
+df = data.frame(poster , proportion)
+
