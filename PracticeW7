@@ -1,0 +1,11 @@
+#Practice W7 
+#Problem 4
+library(rvest)
+library(tidyverse)
+
+html = read_html("https://www.boxofficemojo.com/chart/top_lifetime_gross")
+
+movie.table =  html_table(html)
+movie.table = data.frame(movie.table)
+movie.table $Lifetime.Gross = substring(movie.table$Lifetime.Gross , 2)
+write.csv(movie.table , file="W7_Problem4")
