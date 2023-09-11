@@ -1,0 +1,33 @@
+library(rvest)
+library(dplyr)
+library(tidyverse)
+
+#Problem 1,2,3 
+
+tabless = read_html("https://www.icc-cricket.com/rankings/womens/player-rankings/odi/batting")%>%
+  html_table()
+bat.table = tabless[[1]]
+bat.table$Pos = 1:100
+bat.table = data.frame(bat.table)
+batting = as_tibble(bat.table)
+batting
+
+#Problem 4 
+group.cyl = mtcars%>%group_by(cyl)%>%summarise(avg.disp = mean(disp) , avg.hp = mean(hp)) 
+group.cyl
+
+#Problem 6 
+#6.a 
+indian = batting%>%filter(Team == "IND")
+indian[ , 1:2]  
+
+#6.b
+teams.players = batting%>%group_by(Team)%>%summarise(number_players = n() , avg.rank = mean(Pos) , avg.rating = mean(Rating))
+teams.players
+teams.players%>%arrange(desc(avg.rank))
+
+foo = c("No" , "No" , "No","Yes" , "Yes","No","Yes","No","Yes","No" , "Yes" , "No","No")
+teams.players$Is.Asian = foo
+teams.players%>%group_by(Is.Asian)%>%summarise(numbers = n())
+
+teams.players%>%group_by(Is.Asian)%>%summarise(avg.rating = mean(avg.rating))
