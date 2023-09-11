@@ -1,9 +1,12 @@
+#Assignmnet 3 
 library(rvest)
 library(tidyverse)
-tabless = read_html("https://www.icc-cricket.com/rankings/womens/player-rankings/odi/batting")%>%html_table()
+html = read_html("https://www.icc-cricket.com/rankings/womens/player-rankings/odi/batting")
+
+tabless = html_table(html)
 tabless[[1]]$Pos = 1:100
-df = data.frame(tabless)
-df$Pos = as.numeric(df$Pos)     #Making position column numeric
-df$Rating = as.numeric(df$Rating) #Making Rating column numeric
-icc_rank = df[ , 1:4]
+tabless
+icc_rank = data.frame(as.numeric(tabless[[1]]$Pos), tabless[[1]]$Player, tabless[[1]]$Team ,as.numeric(tabless[[1]]$Rating))
+colnames(icc_rank) = c("Ranking" , "Player" , "Team" , "Rating")
+icc_rank
 
