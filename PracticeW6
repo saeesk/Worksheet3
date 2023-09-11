@@ -13,3 +13,65 @@ html = read_html("https://www.iitk.ac.in/math/visitors-post-doctoral-fellow")
 post.docs = html%>%html_elements(".head2")%>%
   html_text()
 post.docs
+
+#Question 3 
+#movie.name , movie.rating, movie.year, movie.votes
+
+
+#MOvie name 
+html <- read_html("https://www.imdb.com/chart/top/")
+
+name = html%>%
+  html_elements(".ipc-title__text")%>%
+  html_text()
+
+name = name[3:252]
+name 
+
+for( i in 1:250)
+{
+  if( i <10 )
+  {
+    name[i] = substring(name[i] , 3)
+  }
+  else if( i >=10 & i <100)
+  {
+    name[i] = substring(name[i],4)
+  }
+  else
+  {
+    name[i] = substring(name[i],5)
+  }
+}
+name[1:5]
+
+
+#MOvie year 
+sc-b85248f1-5 kZGNjY cli-title-metadata
+
+info = html%>%
+  html_elements(".sc-b85248f1-5.kZGNjY.cli-title-metadata")%>%
+  html_text()
+
+#Year
+year = substring(info , 1, 4)
+year
+
+#Votes
+votes = html%>%
+  html_elements(".ipc-rating-star--voteCount")%>%
+  html_text()
+votes = substring( votes , 3 ,nchar(votes)-1)
+votes
+
+
+#Rating 
+rating = html%>%
+  html_elements(".ipc-rating-star.ipc-rating-star--base.ipc-rating-star--imdb.ratingGroup--imdb-rating")%>%
+  html_text()
+rating = substring(rating , 1,3)
+rating
+
+
+movie.info = data.frame(name , as.numeric(year) , votes , as.numeric(rating))
+movie.info
